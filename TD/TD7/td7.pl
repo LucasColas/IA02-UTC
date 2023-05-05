@@ -56,28 +56,43 @@ concat(L1, L2, L3) :-
     L1 = [A|R],
     concat(R, L2, L32),
     L3 = [A|L32].
+
 %9.inverse(+L, -R) telle que la liste R soit l’inverse L.
 inverse([], []).
 inverse(L, R) :-
     L = [A|R1],
     inverse(R1, R2),
     concat(R2, [A], R).
+
 %10.sous_liste(+L1, +L2) qui vérifie que L1 est une sous liste de L2.
-sous_liste([], _).
 
-sous_liste(_, []).
+%sous_liste([], _).
 
-sous_liste(L1, L2) :-
-    L1 = [A|R1],
-    L2 = [B|R2],
-    A = B,
+%sous_liste(_, []).
+
+%sous_liste(L1, L2) :-
+    %L1 = [A|R1],
+    %L2 = [B|R2],
+    %A = B,
+    %sous_liste(R1, R2).
+
+%sous_liste(L1, L2) :-
+    %L1 = [A|R1],
+    %L2 = [B|R2],
+    %dif(A, B),
+    %sous_liste(L1, R2).
+
+debute_par(_,[]).
+debute_par([H|R1], [H|R2]) :-
+    debute_par(R1, R2).
+
+sous_liste([T|R1], [T|R2]) :-
+    debute_par(R1, R2).
+
+sous_liste([_|R1], R2) :-
     sous_liste(R1, R2).
 
-sous_liste(L1, L2) :-
-    L1 = [A|R1],
-    L2 = [B|R2],
-    dif(A, B),
-    sous_liste(L1, R2).
+    
 %11.retire_element(+L, +X, -R) qui retire la première occurrence de l’élément X dans L et place le résultat dans R.
 retire_element([], _, []).
 retire_element(L, X, R) :-
