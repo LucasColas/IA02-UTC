@@ -1,5 +1,5 @@
 # IA02-UTC
-Our code for the course about Artificial Intelligence and propositional calculus.
+Our code for a course about Artificial Intelligence and propositional calculus.
 
 Authors :
 
