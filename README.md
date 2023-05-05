@@ -1,4 +1,6 @@
 # IA02-UTC
-[French] Code pour les TD et TP machine de l'UV IA02.
+Our code for the course about Artificial Intelligence and propositional calculus.
 
-Code fait avec [Sacha-Sz](https://github.com/sacha-sz).
+Authors :
+-Lucas Colas
+-[Sacha-Sz](https://github.com/sacha-sz).
