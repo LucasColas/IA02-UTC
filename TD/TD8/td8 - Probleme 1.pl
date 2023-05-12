@@ -29,7 +29,9 @@ test(X1, X2, X) :-
     X is X1 + X2,
     dif(X1,X2).
 
+solve(X1, X2, X) :-
+    generate(X1, X2),
+    test(X1, X2, X).
 
-%Problème 2 : Les Maisons
-%1.Définir le prédicat solve([?M1, ?M2, ?M3]) permettant de résoudre le problème. 
-%On utilisera pour cela l’algorithme generate and test.
+
+
