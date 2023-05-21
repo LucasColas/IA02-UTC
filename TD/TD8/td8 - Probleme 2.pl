@@ -24,13 +24,13 @@ element(X, L) :-
     element(X, R).
 
 % Numéro des maisons
-numero(X) :- element([1,2,3],X).
+numero(X) :- member(X, [1,2,3]).
 
 % Couleur des maisons
-couleur(X) :- element([bleu, vert, rouge], X).
+couleur(X) :- member(X, [bleu, vert, rouge]).
 
 % Nationalité
-nationalite(X) :- element([italien, norvegien, espagnol], X).
+nationalite(X) :- member(X, [italien, norvegien, espagnol]).
 
 generate([maison(Num1, Coul1, Nat1), maison(Num2, Coul2, Nat2),maison(Num3, Coul3, Nat3)]) :-
     numero(Num1), couleur(Coul1), nationalite(Nat1),
@@ -58,7 +58,7 @@ regle2() :-
 
 %Indice 1 : L’Espagnol habite la maison directement à droite de la maison rouge.
 indice1([maison(_, rouge,_), maison(_, _, espagnol), maison(_,_,_)]).
-indice1([maison(_,_,_), maison(_,rouge,_), maison(_,_,espagnol)])
+indice1([maison(_,_,_), maison(_,rouge,_), maison(_,_,espagnol)]).
 
 %Indice 2 : Le Norvégien vit dans la maison bleue.
 indice2([maison(_, bleu, norvegien), maison(_,_,_), maison(_,_,_)]).
@@ -67,7 +67,8 @@ indice2([maison(_,_,_), maison(_,_,_), maison(_, bleu, norvegien)]).
 
 
 %Indice 3 : L’Italien habite dans la maison n°2.
-indice3([maison(_,_,_,), maison(2,_,italien), maison(_,_,_)]).
+indice3([maison(_,_,_), maison(2,_,italien), maison(_,_,_)]).
+
 
 
 test([M1,M2,M3]) :-
