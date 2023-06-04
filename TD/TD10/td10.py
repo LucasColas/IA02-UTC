@@ -6,6 +6,12 @@ MAZE = [
     [".", "W", ".", "."],
     [".", "X", ".", "."],
 ]
+maze2 = [
+    [".", ".", ".", "D"],
+    [".", "W", "W", "W"],
+    [".", "W", ".", "W"],
+    [".", "X", ".", "W"],
+]
 WALL = "W"
 #Parcours en largeur.
 def get_neighbors(maze, current):
@@ -29,11 +35,10 @@ def bfs(maze, start, end):
                 queue.append(neighbor)
     return False
 
-bfspath = bfs(MAZE, (3, 1), (0, 0))
-print(bfspath)
 
 
 
+# Parcours en largeur avec le chemin
 def bfs_with_path(labyrinth, start, end):
     # Dimensions du labyrinthe
     rows = len(labyrinth)
@@ -112,6 +117,7 @@ def dfs(maze, start, end):
                 stack.append(neighbor)
     return False
 
+#Parcours en profondeur avec le chemin
 def dfs_with_path(labyrinth, start, end):
     # Dimensions du labyrinthe
     rows = len(labyrinth)
@@ -172,7 +178,7 @@ def dfs_with_path(labyrinth, start, end):
 
     return path_list
 
-
+#Algorithme glouton
 def algorithme_glouton(maze, start, end):
     current = start
     path = [current]
@@ -211,6 +217,7 @@ def iterative_deepening_dfs(maze, start, end):
 def manhattan_distance(start, end):
     return abs(start[0] - end[0]) + abs(start[1] - end[1])
 
+# Algorithme de l'escalade. Renvoie aussi le chemin
 def hill_climbing(maze, start, end):
     current = start
     path = [current]
@@ -270,6 +277,9 @@ def astar(start, goal, map):
 
     return path
 
+#Affichage des résultats selon différentes maps et algorithmes
+bfspath = bfs(MAZE, (3, 1), (0, 0))
+print(bfspath)
 
 
 path_dfs = dfs_with_path(MAZE, (3, 1), (0, 0))
@@ -296,12 +306,7 @@ res, path = hill_climbing(MAZE, (3, 1), (0, 0))
 print("res hill climbing",res)
 print("path : ", path)
 
-maze2 = [
-    [".", ".", ".", "D"],
-    [".", "W", "W", "W"],
-    [".", "W", ".", "W"],
-    [".", "X", ".", "W"],
-]
+
 
 res, path = hill_climbing(maze2, (3, 1), (0, 3))
 print("res hill climbing",res)
