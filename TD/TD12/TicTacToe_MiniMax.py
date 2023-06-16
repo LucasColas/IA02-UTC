@@ -40,7 +40,7 @@ def afficher_etat(State):
                 print(" ", end=" ")
         print()
 
-    print("  ", end=" ")
+    print(" ", end=" ")
     for j in range(3):
         print(j, end=" ")
 
@@ -106,6 +106,7 @@ def evaluate(State, player):
     #print("res_joueur: ", res_joueur)
     #print("res: ", res_joueur)
     #print("player: ", player)
+
     if res_joueur == player:
         print("+1")
         return 1
@@ -117,38 +118,46 @@ def evaluate(State, player):
     
     
 
-def minimax(State, player, depth, Min):
+def minimax(State, player, depth, Max):
     """
     Renvoie une action
     """
     res, res_joueur = etat_terminal(State)
     if res or depth == 0:
         eval = evaluate(State, player)
+        if eval == 1 and player == "O":
+            print("1. O won")
+            afficher_etat(State)
         #print("eval: ", eval)
         return eval, None
     
-    if Min:
-        best_score = float("inf")
-        best_action = None
+    if Max:
+        bestValue = float("-inf")
+        bestAction = None
+        #print("max : ", player)
         for action in goals(State, player):
-            new_state = next(State, action)
-            #print("new_state: ", new_state)
-            score, _ = minimax(new_state, "X", depth-1, False)
-            if score < best_score:
-                best_score = score
-                best_action = action
-        return best_score, best_action
+            #print("action: ", action)
+            #print("player: ", player)
+            #print("depth: ", depth)
+            #print("Max: ", Max)
+            #print("next(State, action): ", next(State, action))
+            #print("player: ", player)
+            value, _ = minimax(next(State, action), "X" if player == "O" else "O", depth - 1, False)
+            if value > bestValue:
+                bestValue = value
+                bestAction = action
+        return bestValue, bestAction
+    
     else:
-        best_score = float("-inf")
-        best_action = None
+        bestValue = float("inf")
+        bestAction = None
         for action in goals(State, player):
-            new_state = next(State, action)
-            #print("new_state: ", new_state)
-            score, _ = minimax(new_state, "O", depth-1, True)
-            if score > best_score:
-                best_score = score
-                best_action = action
-        return best_score, best_action
+            value, _ = minimax(next(State, action), "X" if player == "O" else "O", depth - 1, True)
+            #print("value: ", value)
+            if value < bestValue:
+                bestValue = value
+                bestAction = action
+        return bestValue, bestAction
 
 def main():
     State = creer_etat_initial()
@@ -159,7 +168,8 @@ def main():
         if currentPlayer == "X":
             State = jouer(State, currentPlayer=currentPlayer)
         else:
-            _, action = minimax(State, currentPlayer, 9, True)
+            _, action = minimax(State, "O", 10, True)
+            print("val : ", _)
             State = next(State, action)
         afficher_etat(State)
         #print("eval: ", evaluate(State, "X"))
